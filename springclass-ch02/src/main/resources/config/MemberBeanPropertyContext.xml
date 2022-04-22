@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<context:property-placeholder 
+		location="classpath:config/props/datasource.properties" />
+		
+	<!-- id는 그냥 내가정의하는거class는 참조하고있는클래스 -->
+	<bean id="memberDAO" 
+		class="com.springstudy.ch02.dao.MemberDAOImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="memberService"
+		class="com.springstudy.ch02.service.MemberServiceImplProperty"
+		p:memberDAO-ref="memberDAO" />
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${db.driverClassName}"
+		p:url="${db.url}"
+		p:username="${db.username}"
+		p:password="${db.password}" />
+	
+</beans>

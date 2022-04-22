@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	
+	<!-- 로그를 콘솔로 출력하는 Appender를 지정한다. -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%p - %C{1}.%M{%L} - %m%n" />
+		</layout>
+	</appender>
+	
+	<!--로그를 property.log 파일로 출력하는 Appender를 지정한다. -->
+	<appender name="file" class="org.apache.log4j.FileAppender">
+		<!-- param 태그가 layout 태그 보다 먼저 기술되어야 한다. -->
+		<param name="File" value="src/main/resources/property.log" />
+		<param name="Append" value="true" />	
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d]%p - %C{1}.%M{%L} - %m%n" />
+		</layout>		
+	</appender>
+	
+	<!-- 로그 카테고리를 지정한다. -->
+	<logger name="org.apache">
+		<level value="WARN" />
+	</logger>
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+	
+	<!-- additivity=false는 로그의 중복 출력을 막는 역할을 한다. -->
+	<logger name="com.springstudy.ch02" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+	</logger>	
+
+	<!-- 루트 카테고리를 설정한다. -->
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="file" />
+	</root>
+</log4j:configuration>

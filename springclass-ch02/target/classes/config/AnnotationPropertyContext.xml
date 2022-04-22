@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+
+	<context:property-placeholder
+		location="classpath:config/props/datasource.properties" />
+		
+	<!--  애노테이이션 기반 클래스 스캔과 와이어링 -->
+	<context:component-scan
+		base-package="com.springstudy.ch02.annotion" />
+		
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${db.driverClassName}"
+		p:url="${db.url}"
+		p:username="${db.username}"
+		p:password="${db.password}" />
+
+</beans>
